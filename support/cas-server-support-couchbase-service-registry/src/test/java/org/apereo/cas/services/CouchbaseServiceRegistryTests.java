@@ -1,9 +1,11 @@
 package org.apereo.cas.services;
 
 import org.apereo.cas.config.CouchbaseServiceRegistryConfiguration;
+import org.apereo.cas.couchbase.core.CouchbaseClientFactory;
 import org.apereo.cas.util.junit.EnabledIfContinuousIntegration;
 
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
@@ -40,9 +42,18 @@ public class CouchbaseServiceRegistryTests extends AbstractServiceRegistryTests 
     @Qualifier("couchbaseServiceRegistry")
     private ServiceRegistry serviceRegistry;
 
+    @Autowired
+    @Qualifier("serviceRegistryCouchbaseClientFactory")
+    private CouchbaseClientFactory serviceRegistryCouchbaseClientFactory;
+
     @Override
     public ServiceRegistry getNewServiceRegistry() {
-        return this.serviceRegistry;
+        return serviceRegistry;
+    }
+
+    @BeforeEach
+    public void clearBucket() {
+        serviceRegistryCouchbaseClientFactory.getBucket().invalidateQueryCache();
     }
 
     @Configuration("CouchbaseServiceRegistryTestConfiguration")

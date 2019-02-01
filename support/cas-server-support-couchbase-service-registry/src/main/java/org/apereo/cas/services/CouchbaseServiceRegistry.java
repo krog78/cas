@@ -71,7 +71,7 @@ public class CouchbaseServiceRegistry extends AbstractServiceRegistry implements
     @Override
     public boolean delete(final RegisteredService service) {
         LOGGER.debug("Deleting service [{}]", service.getName());
-        this.couchbase.getBucket().remove(String.valueOf(service.getId()));
+        this.couchbase.getBucket().remove(String.valueOf(service.getId()), couchbase.getTimeout(), TimeUnit.MILLISECONDS);
         publishEvent(new CouchbaseRegisteredServiceDeletedEvent(this));
         return true;
     }
