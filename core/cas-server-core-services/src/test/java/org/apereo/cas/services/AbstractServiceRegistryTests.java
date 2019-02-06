@@ -201,10 +201,10 @@ public abstract class AbstractServiceRegistryTests {
         r.setExpirationPolicy(new DefaultRegisteredServiceExpirationPolicy(false, expirationDate));
         val r2 = this.serviceRegistry.save(r);
         val svc = this.serviceRegistry.findServiceByExactServiceName(r2.getName());
-        assertNotNull(svc);
+        assertNotNull(svc, "1: " + registeredServiceClass.getName());
         DateTimeUtils.setCurrentMillisFixed(System.currentTimeMillis() + 2000);
         val svc2 = this.serviceRegistry.findServiceByExactServiceName(r2.getName());
-        assertNotNull(svc2);
+        assertNotNull(svc2, "2: " + registeredServiceClass.getName());
     }
 
     @ParameterizedTest
