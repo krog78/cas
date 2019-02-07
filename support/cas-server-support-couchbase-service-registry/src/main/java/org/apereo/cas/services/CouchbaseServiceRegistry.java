@@ -53,7 +53,7 @@ public class CouchbaseServiceRegistry extends AbstractServiceRegistry implements
 
     @Override
     public RegisteredService save(final RegisteredService service) {
-        LOGGER.trace("Saving service [{}]", service.getName());
+        LOGGER.trace("Saving service [{}] [{}]", service.getClass().getName(), service.getName());
         if (service.getId() == AbstractRegisteredService.INITIAL_IDENTIFIER_VALUE) {
             service.setId(service.hashCode());
         }
@@ -115,7 +115,7 @@ public class CouchbaseServiceRegistry extends AbstractServiceRegistry implements
     @Override
     public RegisteredService findServiceById(final long id) {
         try {
-            LOGGER.debug("Lookup for service [{}]", id);
+            LOGGER.debug("Lookup for service long: [{}]", id);
             val document = couchbase.getBucket().get(String.valueOf(id), RawJsonDocument.class);
             if (document != null) {
                 val json = document.content();
@@ -130,7 +130,8 @@ public class CouchbaseServiceRegistry extends AbstractServiceRegistry implements
 
     @Override
     public RegisteredService findServiceById(final String id) {
-        return load().stream().filter(r -> r.matches(id)).findFirst().orElse(null);
+        LOGGER.debug("Lookup for service string: [{}]", id);
+        return load().stream().peek(r -> LOGGER.trace("Checking [{}] against [{}]", r, id)).filter(r -> r.matches(id)).findFirst().orElse(null);
     }
 
     /**

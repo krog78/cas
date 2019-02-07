@@ -52,8 +52,10 @@ public class CouchbaseServiceRegistryTests extends AbstractServiceRegistryTests 
     }
 
     @BeforeEach
+    @SneakyThrows
     public void clearBucket() {
         serviceRegistryCouchbaseClientFactory.getBucket().invalidateQueryCache();
+        Thread.sleep(500);
     }
 
     @Configuration("CouchbaseServiceRegistryTestConfiguration")
