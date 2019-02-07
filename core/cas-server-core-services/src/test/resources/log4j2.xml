@@ -26,7 +26,7 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Logger name="org.apereo" level="off" additivity="false">
+        <Logger name="org.apereo.cas.services" level="debug" additivity="false">
             <AppenderRef ref="console"/>
         </Logger>
         <Root level="off">
