@@ -57,8 +57,8 @@ public abstract class AbstractServiceRegistryTests {
         return Stream.of(
             RegexRegisteredService.class,
             OidcRegisteredService.class,
-            SamlRegisteredService.class,
             OAuthRegisteredService.class,
+            SamlRegisteredService.class,
             WSFederationRegisteredService.class
         );
     }

@@ -52,19 +52,17 @@ public class CouchbaseServiceRegistry extends AbstractServiceRegistry implements
     }
 
     @Override
-    @SneakyThrows
     public RegisteredService save(final RegisteredService service) {
         LOGGER.trace("Saving service [{}]", service.getName());
         if (service.getId() == AbstractRegisteredService.INITIAL_IDENTIFIER_VALUE) {
             service.setId(service.hashCode());
         }
-        try (val stringWriter = new StringWriter()) {
-            this.registeredServiceJsonSerializer.to(stringWriter, service);
-            val document = RawJsonDocument.create(String.valueOf(service.getId()), 0, stringWriter.toString());
-            couchbase.getBucket().upsert(document, couchbase.getTimeout(), TimeUnit.MILLISECONDS);
-            LOGGER.debug("Saved service [{}]", service.getName());
-            publishEvent(new CouchbaseRegisteredServiceSavedEvent(this));
-        }
+        val stringWriter = new StringWriter();
+        this.registeredServiceJsonSerializer.to(stringWriter, service);
+        val document = RawJsonDocument.create(String.valueOf(service.getId()), 0, stringWriter.toString());
+        couchbase.getBucket().upsert(document, couchbase.getTimeout(), TimeUnit.MILLISECONDS);
+        LOGGER.debug("Saved service [{}]", service.getName());
+        publishEvent(new CouchbaseRegisteredServiceSavedEvent(this));
         return service;
     }
 
