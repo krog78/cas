@@ -2,6 +2,7 @@ package org.apereo.cas.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 
@@ -34,4 +35,24 @@ public abstract class AbstractServiceRegistry implements ServiceRegistry {
     public String getName() {
         return this.getClass().getSimpleName();
     }
+
+    @Override
+    public RegisteredService findServiceByExactServiceId(final String id) {
+        LOGGER.debug("findServiceByExactServiceId({})", id);
+        return load()
+            .stream()
+            .filter(r -> StringUtils.isNotBlank(r.getServiceId()) && r.getServiceId().equals(id))
+            .findFirst()
+            .orElse(null);
+    }
+
+    public RegisteredService findServiceByExactServiceName(final String name) {
+        LOGGER.debug("findServiceByExactServiceName({})", name);
+        return load()
+            .stream()
+            .filter(r -> r.getName().equals(name))
+            .findFirst()
+            .orElse(null);
+    }
+
 }

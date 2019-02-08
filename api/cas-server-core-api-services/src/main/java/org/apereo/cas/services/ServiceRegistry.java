@@ -1,7 +1,5 @@
 package org.apereo.cas.services;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Collection;
 import java.util.function.Predicate;
 
@@ -59,13 +57,7 @@ public interface ServiceRegistry {
      * @param id the id
      * @return the registered service
      */
-    default RegisteredService findServiceByExactServiceId(final String id) {
-        return load()
-            .stream()
-            .filter(r -> StringUtils.isNotBlank(r.getServiceId()) && r.getServiceId().equals(id))
-            .findFirst()
-            .orElse(null);
-    }
+    RegisteredService findServiceByExactServiceId(final String id);
 
     /**
      * Find a service by an exact match of the service name.
@@ -73,13 +65,7 @@ public interface ServiceRegistry {
      * @param name the name
      * @return the registered service
      */
-    default RegisteredService findServiceByExactServiceName(final String name) {
-        return load()
-            .stream()
-            .filter(r -> r.getName().equals(name))
-            .findFirst()
-            .orElse(null);
-    }
+    RegisteredService findServiceByExactServiceName(final String name);
 
     /**
      * Find service predicate registered service.
