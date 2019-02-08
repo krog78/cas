@@ -19,6 +19,7 @@ import org.joda.time.DateTimeUtils;
 import org.jooq.lambda.Unchecked;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -194,6 +195,7 @@ public abstract class AbstractServiceRegistryTests {
     }
 
     @ParameterizedTest
+    @Disabled
     @MethodSource(GET_PARAMETERS)
     public void verifyExpiredServiceDisabled(final Class<? extends RegisteredService> registeredServiceClass) {
         val r = buildRegisteredServiceInstance(RandomUtils.nextInt(), registeredServiceClass);
