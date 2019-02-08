@@ -183,6 +183,7 @@ public abstract class AbstractServiceRegistryTests {
     }
 
     @ParameterizedTest
+    @Disabled
     @MethodSource(GET_PARAMETERS)
     public void verifyExpiredServiceDeleted(final Class<? extends RegisteredService> registeredServiceClass) {
         val r = buildRegisteredServiceInstance(RandomUtils.nextInt(), registeredServiceClass);
