@@ -4,7 +4,6 @@ import org.apereo.cas.authentication.principal.ShibbolethCompatiblePersistentIdG
 import org.apereo.cas.services.consent.DefaultRegisteredServiceConsentPolicy;
 import org.apereo.cas.services.support.RegisteredServiceMappedRegexAttributeFilter;
 import org.apereo.cas.services.support.RegisteredServiceRegexAttributeFilter;
-import org.apereo.cas.support.oauth.services.OAuthRegisteredService;
 import org.apereo.cas.support.saml.services.SamlRegisteredService;
 import org.apereo.cas.util.CollectionUtils;
 import org.apereo.cas.ws.idp.services.WSFederationRegisteredService;
@@ -58,7 +57,7 @@ public abstract class AbstractServiceRegistryTests {
         return Stream.of(
             RegexRegisteredService.class,
             OidcRegisteredService.class,
-            OAuthRegisteredService.class,
+//            OAuthRegisteredService.class,
             SamlRegisteredService.class,
             WSFederationRegisteredService.class
         );
