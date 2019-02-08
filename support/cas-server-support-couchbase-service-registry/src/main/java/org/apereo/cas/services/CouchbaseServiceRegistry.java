@@ -106,7 +106,7 @@ public class CouchbaseServiceRegistry extends AbstractServiceRegistry implements
         val theBucket = couchbase.getBucket();
         val statement = Select.select("*")
             .from(Expression.i(theBucket.name()))
-            .where(Expression.i("@class").like('"' + RegisteredService.class.getPackageName().concat("%") + '"'));
+            .where(Expression.i("@class").like("%"));
 
         val n1q1Query = N1qlQuery.simple(statement);
         val queryResult = theBucket.query(n1q1Query, couchbase.getTimeout(), TimeUnit.MILLISECONDS);
