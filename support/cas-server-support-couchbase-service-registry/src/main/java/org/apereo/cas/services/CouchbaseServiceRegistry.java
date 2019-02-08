@@ -109,7 +109,14 @@ public class CouchbaseServiceRegistry extends AbstractServiceRegistry implements
             .where(Expression.i("@class").like('"' + RegisteredService.class.getPackageName().concat("%") + '"'));
 
         val n1q1Query = N1qlQuery.simple(statement);
-        return theBucket.query(n1q1Query, couchbase.getTimeout(), TimeUnit.MILLISECONDS);
+        val queryResult = theBucket.query(n1q1Query, couchbase.getTimeout(), TimeUnit.MILLISECONDS);
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("executeViewQueryForAllServices() [");
+            queryResult.allRows().forEach(r -> LOGGER.trace("[{}]", r));
+            LOGGER.trace("]");
+        }
+        return queryResult;
+
     }
 
     @Override
