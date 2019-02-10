@@ -5,6 +5,7 @@ import org.apereo.cas.couchbase.core.CouchbaseClientFactory;
 import org.apereo.cas.util.junit.EnabledIfContinuousIntegration;
 
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +47,15 @@ public class CouchbaseServiceRegistryTests extends AbstractServiceRegistryTests 
         return serviceRegistry;
     }
 
+    @BeforeAll
+    @SneakyThrows
+    public void delay() {
+        Thread.sleep(5000);
+    }
+
     @BeforeEach
     @SneakyThrows
     public void clearBucket() {
-        serviceRegistryCouchbaseClientFactory.getBucket().invalidateQueryCache();
         Thread.sleep(500);
     }
 
